@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, user-scalable=yes, viewport-fit=cover">
+  <meta name="theme-color" content="#14b8a6">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="FarmAlert">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="format-detection" content="telephone=no">
+  <title>FarmAlert JSON Feed</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="manifest" href="manifest.json">
+  <script src="translations.js"></script></head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-icon">🌿</div>
+        <div>
+          <h2 data-i18n="brandName">FarmAlert</h2>
+          <p data-i18n="brandSubtitle">Real-time monitoring</p>
+        </div>
+      </div>
+      <nav class="sidebar-nav">
+        <a href="index.html" class="sidebar-link"><span class="nav-icon">📊</span><span data-i18n="sidebarDashboard">Dashboard</span></a>
+        <a href="alerts.html" class="sidebar-link"><span class="nav-icon">🔔</span><span data-i18n="sidebarAlerts">Alerts</span></a>
+        <a href="report.html" class="sidebar-link"><span class="nav-icon">📝</span><span data-i18n="sidebarReport">Report Issue</span></a>
+        <a href="weather.html" class="sidebar-link"><span class="nav-icon">🌤️</span><span data-i18n="sidebarWeather">Weather</span></a>
+      </nav>
+      <div class="sidebar-footer">
+        <p data-i18n="sidebarFooter">Download or copy the raw JSON problem feed.</p>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <header class="page-header">
+        <div>
+          <h1 data-i18n="jsonPageTitle">Raw JSON Feed</h1>
+          <p data-i18n="jsonPageSubtitle">Access the stored pest and disease reports in JSON format.</p>
+        </div>
+        <div class="header-actions">
+          <button class="icon-btn" onclick="toggleLanguage()" id="langToggleBtn" title="Change language">हिंदी</button>
+          <button class="icon-btn" onclick="toggleDarkMode()" title="Toggle dark mode">🌙</button>
+          <button class="icon-btn badge" onclick="toggleNotifications()" title="View notifications">🔔</button>
+          <button class="icon-btn" onclick="logout()" title="Logout">🚪</button>
+        </div>
+      </header>
+
+      <section class="section json-card">
+        <div class="json-header">
+          <div>
+            <h2 data-i18n="jsonHeaderTitle">Saved Alerts JSON</h2>
+            <p data-i18n="jsonHeaderNote">Copy or inspect the JSON response from the backend.</p>
+          </div>
+          <button onclick="copyJSON()" data-i18n="jsonCopyButton">Copy JSON</button>
+        </div>
+        <pre id="json-output">Loading JSON...</pre>
+      </section>
+    </main>
+  </div>
+
+  <div id="notificationPanel" class="notification-panel">
+    <div class="notification-header">
+      <h3 data-i18n="notifications">Notifications</h3>
+      <button class="close-btn" onclick="toggleNotifications()">×</button>
+    </div>
+    <div id="notificationList" class="notification-list">
+      <p class="no-notifications" data-i18n="noNotifications">No new notifications</p>
+    </div>
+  </div>
+
+  <div id="notificationOverlay" class="notification-overlay" onclick="toggleNotifications()"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>

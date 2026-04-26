@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, user-scalable=yes, viewport-fit=cover">
+  <meta name="theme-color" content="#14b8a6">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="FarmAlert">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="format-detection" content="telephone=no">
+  <title>FarmAlert Login</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body class="login-page">
+  <div class="login-shell">
+    <div class="login-container">
+      <main class="login-content">
+        <div class="auth-mode-top">
+          <button type="button" class="auth-toggle-small active" data-mode="login">Sign in</button>
+          <button type="button" class="auth-toggle-small" data-mode="signup">Sign up</button>
+        </div>
+
+        <section class="section form-card login-card">
+          <div class="login-header">
+            <div class="brand-icon">🌿</div>
+            <div>
+              <h1>Welcome back</h1>
+              <p>Log in to access the FarmAlert dashboard.</p>
+            </div>
+          </div>
+
+          <form id="loginForm" class="login-form">
+            <div class="field-group" id="nameGroup">
+              <label for="authName">Full name</label>
+              <div class="input-wrapper">
+                <svg class="input-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="2"/>
+                  <path d="M4 21C4 17.6863 7.13401 15 11 15H13C16.866 15 20 17.6863 20 21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+                <input id="authName" type="text" placeholder="Your full name" autocomplete="name">
+              </div>
+            </div>
+            <div class="field-group">
+              <label for="email">Email</label>
+              <div class="input-wrapper">
+                <svg class="input-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M3 8L10.5 13.5L21 3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  <rect x="3" y="3" width="18" height="18" rx="2" stroke="currentColor" stroke-width="2"/>
+                </svg>
+                <input id="email" type="email" placeholder="yourname@example.com" autocomplete="email" required>
+              </div>
+            </div>
+            <div class="field-group">
+              <label for="password">Password</label>
+              <div class="input-wrapper">
+                <svg class="input-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <rect x="3" y="11" width="18" height="11" rx="2" ry="2" stroke="currentColor" stroke-width="2"/>
+                  <circle cx="12" cy="16" r="1" fill="currentColor"/>
+                  <path d="M7 11V7C7 4.23858 9.23858 2 12 2C14.7614 2 17 4.23858 17 7V11" stroke="currentColor" stroke-width="2"/>
+                </svg>
+                <input id="password" type="password" placeholder="Create a password" autocomplete="current-password" required>
+                <button type="button" class="toggle-password" id="togglePassword" aria-label="Show password">
+                  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M1 12C1 12 5 4 12 4C19 4 23 12 23 12C23 12 19 20 12 20C5 20 1 12 1 12Z" stroke="currentColor" stroke-width="2"/>
+                    <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2"/>
+                  </svg>
+                </button>
+              </div>
+            </div>
+            <div class="field-group confirm-group" id="confirmPasswordGroup" style="display: none;">
+              <label for="confirmPassword">Confirm password</label>
+              <div class="input-wrapper">
+                <svg class="input-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <rect x="3" y="11" width="18" height="11" rx="2" ry="2" stroke="currentColor" stroke-width="2"/>
+                  <path d="M7 11V7C7 4.23858 9.23858 2 12 2C14.7614 2 17 4.23858 17 7V11" stroke="currentColor" stroke-width="2"/>
+                </svg>
+                <input id="confirmPassword" type="password" placeholder="Confirm password" autocomplete="new-password">
+              </div>
+            </div>
+            <div class="field-group" id="otpGroup" style="display: none;">
+              <label for="signupOtp">Email OTP</label>
+              <div class="input-wrapper">
+                <svg class="input-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <rect x="3" y="4" width="18" height="16" rx="3" stroke="currentColor" stroke-width="2"/>
+                  <path d="M8 12L11 15L16 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <input id="signupOtp" type="text" inputmode="numeric" maxlength="6" placeholder="Enter 6-digit OTP" autocomplete="one-time-code">
+              </div>
+              <button type="button" class="btn-social" id="resendOtpBtn" style="display:none; margin-top:8px;">Resend OTP</button>
+            </div>
+            <div id="authFeedback" class="error-message" style="display: none;"></div>
+            <button class="btn" type="submit" id="loginBtn">
+              <span class="btn-text">Login</span>
+              <div class="btn-spinner" style="display: none;">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" opacity="0.3"/>
+                  <path d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" fill="currentColor"/>
+                </svg>
+              </div>
+            </button>
+            <p class="auth-hint" id="authHint">Sign in with your FarmAlert email and password.</p>
+          </form>
+
+
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <script src="../script.js"></script>
+</body>
+</html>

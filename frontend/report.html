@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, user-scalable=yes, viewport-fit=cover">
+  <meta name="theme-color" content="#14b8a6">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="FarmAlert">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="format-detection" content="telephone=no">
+  <title>FarmAlert Report</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="manifest" href="manifest.json">
+  <script src="translations.js"></script>
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-icon">🌿</div>
+        <div>
+          <h2 data-i18n="brandName">FarmAlert</h2>
+          <p data-i18n="brandSubtitle">Real-time monitoring</p>
+        </div>
+      </div>
+      <nav class="sidebar-nav">
+        <a href="index.html" class="sidebar-link"><span class="nav-icon">📊</span><span data-i18n="sidebarDashboard">Dashboard</span></a>
+        <a href="alerts.html" class="sidebar-link"><span class="nav-icon">🔔</span><span data-i18n="sidebarAlerts">Alerts</span></a>
+        <a href="report.html" class="sidebar-link active"><span class="nav-icon">📝</span><span data-i18n="sidebarReport">Report Issue</span></a>
+        <a href="weather.html" class="sidebar-link"><span class="nav-icon">🌤️</span><span data-i18n="sidebarWeather">Weather</span></a>
+      </nav>
+      <div class="sidebar-footer">
+        <p data-i18n="sidebarFooter">Submit observations and help other farmers respond faster.</p>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <header class="page-header">
+        <div>
+          <h1 data-i18n="reportPageTitle">Report Field Issue</h1>
+          <p data-i18n="reportPageSubtitle">Share pest or disease details from your farm.</p>
+        </div>
+        <div class="header-actions">
+          <button class="icon-btn" onclick="toggleLanguage()" id="langToggleBtn" title="Change language">हिंदी</button>
+          <button class="icon-btn" onclick="toggleDarkMode()" title="Toggle dark mode">🌙</button>
+          <button class="icon-btn badge" onclick="toggleNotifications()" title="View notifications">🔔</button>
+          <button class="icon-btn" onclick="logout()" title="Logout">🚪</button>
+        </div>
+      </header>
+
+      <section class="section form-card">
+        <h2 data-i18n="reportFormTitle">New Report</h2>
+        <div class="form-grid">
+          <div class="field-group">
+            <label data-i18n="reportFormName">Farmer Name</label>
+            <input type="text" id="name" data-i18n="reportNamePlaceholder" placeholder="Enter your name">
+          </div>
+          <div class="field-group">
+            <label data-i18n="reportFormLocation">Location</label>
+            <input type="text" id="location" data-i18n="reportLocationPlaceholder" placeholder="Field location">
+          </div>
+          <div class="field-group">
+            <label data-i18n="reportFormCrop">Crop</label>
+            <input type="text" id="crop" data-i18n="reportCropPlaceholder" placeholder="Crop type">
+          </div>
+          <div class="field-group full-width">
+            <label data-i18n="reportFormProblem">Problem Details</label>
+            <textarea id="problem" data-i18n="reportProblemPlaceholder" placeholder="Describe the pest or disease"></textarea>
+          </div>
+          <div class="field-group full-width">
+            <label>Issue Image (Optional)</label>
+            <div class="file-upload-container">
+              <input type="file" id="reportImage" accept="image/*" capture="environment" class="file-input-hidden">
+              <div class="file-upload-area" id="fileUploadArea">
+                <div class="upload-icon">📸</div>
+                <div class="upload-text">
+                  <p class="upload-main">Drag image here or click to select</p>
+                  <p class="upload-hint">PNG, JPG, WebP (Max 5MB)</p>
+                </div>
+              </div>
+              <div class="file-preview-container" id="filePreviewContainer" style="display: none;">
+                <div class="file-preview">
+                  <img id="previewImage" class="preview-img" alt="preview">
+                  <div class="file-info">
+                    <p class="file-name" id="fileName"></p>
+                    <p class="file-size" id="fileSize"></p>
+                  </div>
+                  <button type="button" class="btn-remove-file" onclick="removeFileUpload()">✕</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <button id="reportSubmitBtn" onclick="submitData()" data-i18n="reportFormSubmit">Submit Report</button>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div id="notificationPanel" class="notification-panel">
+    <div class="notification-header">
+      <h3 data-i18n="notifications">Notifications</h3>
+      <button class="close-btn" onclick="toggleNotifications()">×</button>
+    </div>
+    <div id="notificationList" class="notification-list">
+      <p class="no-notifications" data-i18n="noNotifications">No new notifications</p>
+    </div>
+  </div>
+
+  <div id="notificationOverlay" class="notification-overlay" onclick="toggleNotifications()"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>

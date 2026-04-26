@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, user-scalable=yes, viewport-fit=cover">
+  <meta name="theme-color" content="#14b8a6">
+  <title>FarmAlert Chat</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script src="translations.js"></script>
+</head>
+<body class="chat-page">
+  <div class="chat-page-shell">
+    <header class="chat-page-header">
+      <button class="back-btn" onclick="window.location.href='index.html'" aria-label="Back to dashboard">
+        <span class="back-icon">←</span>
+        <span>Back to dashboard</span>
+      </button>
+      <div class="chat-page-title">
+        <h1 data-i18n="chatWidgetTitle">FarmAlert Chat</h1>
+        <p class="chat-subtitle" data-i18n="chatWidgetHint">Ask about alerts, crops, and pest guidance.</p>
+      </div>
+    </header>
+    <main class="chat-page-main">
+      <div id="chatWidget" class="chat-widget active" aria-live="polite">
+        <div class="chat-header">
+          <div>
+            <h3 data-i18n="chatWidgetTitle">FarmAlert Chat</h3>
+            <p class="chat-subtitle" data-i18n="chatWidgetHint">Ask about alerts, crops, and pest guidance.</p>
+          </div>
+          <button type="button" class="chat-close-btn" onclick="window.location.href='index.html'" aria-label="Close chat">×</button>
+        </div>
+        <div id="chatMessages" class="chat-messages">
+          <div class="chat-empty" data-i18n="chatEmptyMessage">Hello! Ask me about your dashboard or crops.</div>
+        </div>
+        <form id="chatForm" class="chat-form">
+          <input id="chatInput" type="text" placeholder="Type your question..." data-i18n="chatInputPlaceholder" autocomplete="off" />
+          <button type="submit" class="btn chat-send-btn" data-i18n="sendMessage">Send</button>
+        </form>
+        <div id="chatStatus" class="chat-status"></div>
+      </div>
+    </main>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

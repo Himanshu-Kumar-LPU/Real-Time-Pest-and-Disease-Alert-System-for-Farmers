@@ -1,0 +1,93 @@
+[
+  {
+<<<<<<< Updated upstream
+    "id": 1776794063260,
+    "name": "Himanshu Kumar",
+    "location": "Nawada",
+    "crop": "wheat",
+    "problem": "yellow leaf",
+    "advice": "Probable Nitrogen Deficiency or Iron Chlorosis: If uniform yellowing, apply Urea (20kg/hectare). If interveinal yellowing (veins green), apply Iron sulphate (5kg/hectare).",
+    "imageUrl": "/uploads/reports/report-1776794063253-jsi00pth.jpg",
+    "reportedAt": "2026-04-21T17:54:23.260Z",
+    "userId": "69e7b97de1d8724f326987d2",
+    "userEmail": "kumarhimanshu995573@gmail.com"
+=======
+    "id": 1777190773226,
+    "name": "Vivek Ash",
+    "location": "river side",
+    "crop": "Corn",
+    "problem": "This maize (corn) ear is clearly showing a severe ear rot disease, most likely Fusarium ear rot or Aspergillus ear rot (both are common fungal infections in corn).",
+    "advice": "Solution for Maize Ear Rot (Fusarium / Aspergillus):\n\nRemove and destroy infected ears immediately to stop spread.\nAvoid excess moisture – ensure proper drainage and do not over-irrigate.\nHarvest crops on time; delayed harvesting increases infection risk.\nDry grains properly after harvest (moisture below 13–14%).\nUse resistant or disease-tolerant maize varieties.\nPractice crop rotation (avoid growing maize repeatedly in the same field).\nControl insects (like corn borers), as they create entry points for fungi.\nApply recommended fungicides (e.g., Carbendazim or Mancozeb) if infection is severe.",
+    "imageUrl": "/uploads/reports/report-1777190773224-k9pp6ia5.png",
+    "reportedAt": "2026-04-26T08:06:13.226Z",
+    "userId": "69edc518adc62cd0e63bdc17",
+    "userEmail": "vivekash2005@gmail.com",
+    "guidance": "Solution for Maize Ear Rot (Fusarium / Aspergillus):\n\nRemove and destroy infected ears immediately to stop spread.\nAvoid excess moisture – ensure proper drainage and do not over-irrigate.\nHarvest crops on time; delayed harvesting increases infection risk.\nDry grains properly after harvest (moisture below 13–14%).\nUse resistant or disease-tolerant maize varieties.\nPractice crop rotation (avoid growing maize repeatedly in the same field).\nControl insects (like corn borers), as they create entry points for fungi.\nApply recommended fungicides (e.g., Carbendazim or Mancozeb) if infection is severe.",
+    "guidanceUpdatedAt": "2026-04-26T08:12:22.140Z",
+    "guidanceUpdatedBy": "kumarhimanshu9605@gmail.com"
+  },
+  {
+    "id": 1777190548804,
+    "name": "Himanshu Kumar",
+    "location": "Punjab",
+    "crop": "Rice",
+    "problem": "My rice plan is getting day by day black hoe can i stop it by this",
+    "advice": "Rice plants turning black – causes & solution\n\nRice plants turning black can be due to fungal disease, bacterial infection, or pest attack.\n\n1. Fungal disease (Blast / Brown spot)\nLeaves get black or brown spots and slowly dry.\nSolution: Spray Tricyclazole (0.6 g per liter water) or Carbendazim. Repeat after 7–10 days.\n\n2. Bacterial leaf blight\nLeaf tips turn yellow, then brown, then black.\nSolution: Spray Streptocycline (0.5 g) + Copper Oxychloride (2 g) per liter water.\n\n3. Pest attack (Brown planthopper)\nPlants turn black in patches and dry. Insects are present at the base.\nSolution: Spray Imidacloprid or Thiamethoxam.\n\nImportant precautions:\n\nAvoid excess urea fertilizer\nMaintain proper water drainage\nCheck plants regularly",
+    "imageUrl": "/uploads/reports/report-1777190548800-hl17tic4.jpg",
+    "reportedAt": "2026-04-26T08:02:28.804Z",
+    "userId": "69e3750b96ee3a29289a1ff8",
+    "userEmail": "kumarhimanshu9605@gmail.com",
+    "guidance": "Rice plants turning black – causes & solution\n\nRice plants turning black can be due to fungal disease, bacterial infection, or pest attack.\n\n1. Fungal disease (Blast / Brown spot)\nLeaves get black or brown spots and slowly dry.\nSolution: Spray Tricyclazole (0.6 g per liter water) or Carbendazim. Repeat after 7–10 days.\n\n2. Bacterial leaf blight\nLeaf tips turn yellow, then brown, then black.\nSolution: Spray Streptocycline (0.5 g) + Copper Oxychloride (2 g) per liter water.\n\n3. Pest attack (Brown planthopper)\nPlants turn black in patches and dry. Insects are present at the base.\nSolution: Spray Imidacloprid or Thiamethoxam.\n\nImportant precautions:\n\nAvoid excess urea fertilizer\nMaintain proper water drainage\nCheck plants regularly",
+    "guidanceUpdatedAt": "2026-04-26T08:04:24.667Z",
+    "guidanceUpdatedBy": "kumarhimanshu9605@gmail.com"
+  },
+  {
+    "id": 1777190254378,
+    "name": "Rahul Chaudhary",
+    "location": "Nawada",
+    "crop": "Wheat",
+    "problem": "My wheat leaf is getting yellow leaf",
+    "advice": "Probable Nitrogen Deficiency or Iron Chlorosis: If uniform yellowing, apply Urea (20kg/hectare). If interveinal yellowing (veins green), apply Iron sulphate (5kg/hectare).",
+    "imageUrl": "",
+    "reportedAt": "2026-04-26T07:57:34.378Z",
+    "userId": "69edc52cadc62cd0e63bdc1a",
+    "userEmail": "rahulchaudhary11119@gmail.com"
+  },
+  {
+    "id": 1777202016446,
+    "name": "Vivek Ash",
+    "location": "Phagwara",
+    "crop": "Corn",
+    "problem": "This is a maize (corn) ear heavily infested by insects, most likely the corn earworm (Helicoverpa armigera) along with secondary pests and fungal infection.",
+    "advice": "Use neem oil or insecticidal soap and inspect plants daily for early signs of infestation.",
+    "imageUrl": "/uploads/reports/report-1777202016211-mn9ppblh.png",
+    "reportedAt": "2026-04-26T11:13:36.446Z",
+    "userId": "69edc518adc62cd0e63bdc17",
+    "userEmail": "vivekash2005@gmail.com"
+  },
+  {
+    "id": 1777202109678,
+    "name": "Vivek Ash",
+    "location": "Phagwara",
+    "crop": "Corn",
+    "problem": "This is a maize (corn) ear heavily infested by insects, most likely the corn earworm (Helicoverpa armigera) along with secondary pests and fungal infection.",
+    "advice": "Use neem oil or insecticidal soap and inspect plants daily for early signs of infestation.",
+    "imageUrl": "/uploads/reports/report-1777202109523-d1kraagm.png",
+    "reportedAt": "2026-04-26T11:15:09.678Z",
+    "userId": "69edc518adc62cd0e63bdc17",
+    "userEmail": "vivekash2005@gmail.com"
+  },
+  {
+    "id": 1777202390672,
+    "name": "Vivek Ash",
+    "location": "Phagwara",
+    "crop": "Corn",
+    "problem": "This is a maize (corn) ear heavily infested by insects, most likely the corn earworm (Helicoverpa armigera) along with secondary pests and fungal infection.",
+    "advice": "Use neem oil or insecticidal soap and inspect plants daily for early signs of infestation.",
+    "imageUrl": "/uploads/reports/report-1777202390442-9hlyzs1c.jpg",
+    "reportedAt": "2026-04-26T11:19:50.672Z",
+    "userId": "69edc518adc62cd0e63bdc17",
+    "userEmail": "vivekash2005@gmail.com"
+>>>>>>> Stashed changes
+  }
+]

@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, user-scalable=yes, viewport-fit=cover">
+  <meta name="theme-color" content="#14b8a6">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="FarmAlert">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="format-detection" content="telephone=no">
+  <title>FarmAlert Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="manifest" href="manifest.json">
+  <script src="translations.js"></script>
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-icon">🌿</div>
+        <div>
+          <h2 data-i18n="brandName">FarmAlert</h2>
+          <p data-i18n="brandSubtitle">Real-time monitoring</p>
+        </div>
+      </div>
+      <nav class="sidebar-nav">
+        <a href="index.html" class="sidebar-link active">
+          <span class="nav-icon">📊</span>
+          <span data-i18n="dashboardTitle">Dashboard</span>
+        </a>
+        <a href="alerts.html" class="sidebar-link">
+          <span class="nav-icon">🔔</span>
+          <span data-i18n="alertsTitle">Alerts</span>
+        </a>
+        <a href="report.html" class="sidebar-link">
+          <span class="nav-icon">📝</span>
+          <span data-i18n="reportTitle">Report Issue</span>
+        </a>
+        <a href="weather.html" class="sidebar-link">
+          <span class="nav-icon">🌤️</span>
+          <span data-i18n="sidebarWeather">Weather</span>
+        </a>
+      </nav>
+      <div class="sidebar-footer">
+        <p data-i18n="brandFooter">Keep your crops safe with early alerts.</p>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <header class="page-header">
+        <div>
+          <h1 data-i18n="dashboardTitle">Dashboard</h1>
+          <p data-i18n="dashboardSubtitle">Monitor your fields in real-time.</p>
+        </div>
+        <div class="header-actions">
+          <button class="hamburger-btn" onclick="toggleSidebar()" title="Menu">☰</button>
+          <div class="search-bar">
+            <span>🔍</span>
+            <input type="text" placeholder="Search fields or pests..." data-i18n="searchPlaceholder">
+          </div>
+          <button class="icon-btn" onclick="toggleLanguage()" id="langToggleBtn" title="Change language">हिंदी</button>
+          <button class="icon-btn" onclick="toggleDarkMode()" title="Toggle dark mode">🌙</button>
+          <button class="icon-btn badge" onclick="toggleNotifications()" title="View notifications">🔔</button>
+          <button class="icon-btn" onclick="logout()" title="Logout">🚪</button>
+        </div>
+      </header>
+
+      <section class="cards-grid">
+        <article class="card">
+          <div class="card-meta">
+            <span class="card-badge" data-i18n="healthyFields">Healthy Fields</span>
+            <span class="card-icon">✅</span>
+          </div>
+          <h2 id="total-alerts">0</h2>
+          <p class="card-note" data-i18n="healthyFieldsNote">Fields currently monitored without alerts.</p>
+        </article>
+        <article class="card">
+          <div class="card-meta">
+            <span class="card-badge alert" data-i18n="activeAlerts">Active Alerts</span>
+            <span class="card-icon">⚠️</span>
+          </div>
+          <h2 id="pest-count">0</h2>
+          <p class="card-note" data-i18n="activeAlertsNote">Incidents that need immediate attention.</p>
+        </article>
+        <article class="card">
+          <div class="card-meta">
+            <span class="card-badge" data-i18n="pestsDetected">Pests Detected</span>
+            <span class="card-icon">🐛</span>
+          </div>
+          <h2 id="disease-count">0</h2>
+          <p class="card-note" data-i18n="pestsDetectedNote">Types of pests and diseases identified.</p>
+        </article>
+        <article class="card">
+          <div class="card-meta">
+            <span class="card-badge" data-i18n="reports">Reports</span>
+            <span class="card-icon">📈</span>
+          </div>
+          <h2 id="recent-count">0</h2>
+          <p class="card-note" data-i18n="reportsNote">New reports submitted this week.</p>
+        </article>
+      </section>
+
+      <section class="section">
+        <div class="section-header">
+          <div>
+            <h2 data-i18n="latestAlerts">Latest Alerts</h2>
+            <p data-i18n="latestAlertsNote">Recent problems reported by farmers.</p>
+          </div>
+          <a href="alerts.html" class="view-all" data-i18n="viewAllAlerts">View all alerts</a>
+        </div>
+        <div id="recent-alerts" class="alerts-grid"></div>
+      </section>
+      <section class="section image-analysis-section">
+        <div class="section-header">
+          <div>
+            <h2 data-i18n="analysisTitle">Smart Multi-Input Disease Analysis</h2>
+            <p data-i18n="analysisSubtitle">Upload or capture leaf, fruit, or whole-plant images and get disease prediction with confidence.</p>
+          </div>
+        </div>
+        <div class="analysis-card">
+          <label class="image-upload-label" for="diseaseImageInput">
+            <input id="diseaseImageInput" type="file" accept="image/*" />
+            <span data-i18n="analysisChooseImage">Choose from gallery or camera</span>
+          </label>
+          <div class="image-preview" id="imagePreviewContainer">
+            <span class="preview-placeholder" data-i18n="analysisNoImage">No image selected</span>
+            <img id="imagePreview" src="" alt="Selected plant" />
+          </div>
+          <button id="analyzeButton" class="btn analyze-btn" data-i18n="analysisAnalyzeButton">Analyze Image</button>
+          <div id="analysisResult" class="analysis-result"></div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <button id="chatToggleBtn" class="chat-toggle-btn" onclick="openChatOrToggle()" title="Open chat">💬</button>
+
+  <div id="chatWidget" class="chat-widget" aria-live="polite">
+    <div class="chat-header">
+      <div>
+        <h3 data-i18n="chatWidgetTitle">FarmAlert Chat</h3>
+        <p class="chat-subtitle" data-i18n="chatWidgetHint">Ask about alerts, crops, and pest guidance.</p>
+      </div>
+      <button type="button" class="chat-close-btn" onclick="toggleChatWidget()" aria-label="Close chat">×</button>
+    </div>
+    <div id="chatMessages" class="chat-messages">
+      <div class="chat-empty" data-i18n="chatEmptyMessage">Hello! Ask me about your dashboard or crops.</div>
+    </div>
+    <form id="chatForm" class="chat-form">
+      <input id="chatInput" type="text" placeholder="Type your question..." data-i18n="chatInputPlaceholder" autocomplete="off" />
+      <button type="submit" class="btn chat-send-btn" data-i18n="sendMessage">Send</button>
+    </form>
+    <div id="chatStatus" class="chat-status"></div>
+  </div>
+
+  <div class="sidebar-overlay" onclick="toggleSidebar()"></div>
+
+  <div id="notificationPanel" class="notification-panel">
+    <div class="notification-header">
+      <h3 data-i18n="notifications">Notifications</h3>
+      <button class="close-btn" onclick="toggleNotifications()">×</button>
+    </div>
+    <div id="notificationList" class="notification-list">
+      <p class="no-notifications" data-i18n="noNotifications">No new notifications</p>
+    </div>
+  </div>
+
+  <div id="notificationOverlay" class="notification-overlay" onclick="toggleNotifications()"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
