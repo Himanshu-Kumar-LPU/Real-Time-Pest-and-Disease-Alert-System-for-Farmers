@@ -22,6 +22,7 @@ const upload = multer({
 const connectDB = require("./config/db");
 const authRoutes = require("./routes/auth");
 const User = require("./models/User");
+const Report = require("./models/Report");
 let selfsigned = null;
 try {
   selfsigned = require("selfsigned");
@@ -87,7 +88,30 @@ app.use(express.static(frontendPath, { index: false }));
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 // Connect to MongoDB
-connectDB();
+connectDB().then(async () => {
+  // Migrate data.json to MongoDB if collection is empty
+  try {
+    const reportCount = await Report.countDocuments();
+    if (reportCount === 0 && fs.existsSync(dataFilePath)) {
+      const fileContent = fs.readFileSync(dataFilePath, "utf-8").trim();
+      if (fileContent) {
+        const localData = JSON.parse(fileContent);
+        if (Array.isArray(localData) && localData.length > 0) {
+          console.log(`📦 Migrating ${localData.length} reports from data.json to MongoDB...`);
+          // Clean up data for MongoDB (convert string IDs if needed)
+          const cleanedData = localData.map(r => {
+            const { id, ...rest } = r;
+            return rest;
+          });
+          await Report.insertMany(cleanedData);
+          console.log("✅ Migration complete!");
+        }
+      }
+    }
+  } catch (err) {
+    console.error("❌ Migration failed:", err.message);
+  }
+});
 
 // Authentication Routes
 app.use('/api/auth', authRoutes);
@@ -1084,28 +1108,31 @@ app.post("/report", upload.single("image"), async (req, res) => {
 
   const advice = await getGuidanceWithTimeout(effectiveCrop, effectiveProblem, language, 3500);
 
-  const newReport = {
-    id: Date.now(),
-    name: effectiveName,
-    location: effectiveLocation,
-    crop: effectiveCrop,
-    problem: effectiveProblem,
-    advice,
-    imageUrl: imageFileName ? `/uploads/reports/${imageFileName}` : "",
-    reportedAt: new Date().toISOString(),
-    userId: loggedInUser?._id ? String(loggedInUser._id) : "",
-    userEmail: String(loggedInUser?.email || "")
-  };
+  try {
+    const reportData = {
+      name: effectiveName,
+      location: effectiveLocation,
+      crop: effectiveCrop,
+      problem: effectiveProblem,
+      advice,
+      imageUrl: imageFileName ? `/uploads/reports/${imageFileName}` : "",
+      reportedAt: new Date(),
+      userId: loggedInUser?._id || null,
+      userEmail: String(loggedInUser?.email || "")
+    };
 
-  data.push(newReport);
-  await fs.promises.writeFile(dataFilePath, JSON.stringify(data, null, 2));
-  
-  // Send email in background so report submit responds faster.
-  sendEmailToAdmin(newReport).catch(error => {
-    console.error("Background email send failed:", error.message);
-  });
-  
-  res.json({ message: "Report added", report: newReport });
+    const savedReport = await new Report(reportData).save();
+    
+    // Send email in background
+    sendEmailToAdmin(savedReport).catch(error => {
+      console.error("Background email send failed:", error.message);
+    });
+    
+    res.json({ message: "Report added", report: savedReport });
+  } catch (error) {
+    console.error("Failed to save report to MongoDB:", error.message);
+    res.status(500).json({ message: "Error saving report." });
+  }
 });
 
 // Hindi guidance endpoint
@@ -1128,25 +1155,33 @@ app.post("/report-hindi", (req, res) => {
 
   const guidance = getHindiGuidance(crop, problem);
 
-  const newReport = {
-    id: Date.now(),
-    name,
-    location,
-    crop,
-    problem,
-    advice: typeof guidance === 'object' ? guidance["समाधान"] : guidance,
-    guidance: guidance,
-    reportedAt: new Date().toISOString(),
-    language: "hindi"
-  };
+  try {
+    const reportData = {
+      name,
+      location,
+      crop,
+      problem,
+      advice: typeof guidance === 'object' ? guidance["समाधान"] : guidance,
+      guidance: typeof guidance === 'object' ? JSON.stringify(guidance) : guidance,
+      reportedAt: new Date(),
+      language: "hindi"
+    };
 
-  data.push(newReport);
-  fs.writeFileSync(dataFilePath, JSON.stringify(data, null, 2));
-  res.json({ message: "रिपोर्ट जमा की गई", report: newReport });
+    const savedReport = await new Report(reportData).save();
+    res.json({ message: "रिपोर्ट जमा की गई", report: savedReport });
+  } catch (error) {
+    console.error("Failed to save Hindi report to MongoDB:", error.message);
+    res.status(500).json({ message: "रिपोर्ट सहेजने में त्रुटि।" });
+  }
 });
 
-app.get("/alerts", (req, res) => {
-  res.json(data);
+app.get("/alerts", async (req, res) => {
+  try {
+    const reports = await Report.find().sort({ reportedAt: -1 }).limit(100);
+    res.json(reports);
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching alerts" });
+  }
 });
 
 // 👨‍💼 ADMIN ENDPOINTS
@@ -1192,11 +1227,16 @@ const checkAdminToken = (req, res, next) => {
 };
 
 // Get all reports
-app.get("/api/admin/reports", checkAdminToken, (req, res) => {
-  res.json({
-    totalReports: data.length,
-    reports: data.sort((a, b) => new Date(b.reportedAt) - new Date(a.reportedAt))
-  });
+app.get("/api/admin/reports", checkAdminToken, async (req, res) => {
+  try {
+    const reports = await Report.find().sort({ reportedAt: -1 });
+    res.json({
+      totalReports: reports.length,
+      reports: reports
+    });
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching reports" });
+  }
 });
 
 // Get all users
@@ -1213,21 +1253,29 @@ app.get("/api/admin/users", checkAdminToken, async (req, res) => {
 });
 
 // Delete a report
-app.delete("/api/admin/reports/:id", checkAdminToken, (req, res) => {
-  const reportId = parseInt(req.params.id);
-  const index = data.findIndex(r => r.id === reportId);
-  
-  if (index === -1) {
-    return res.status(404).json({ message: "Report not found" });
+app.delete("/api/admin/reports/:id", checkAdminToken, async (req, res) => {
+  try {
+    const reportId = req.params.id;
+    let deletedReport;
+    
+    if (reportId.match(/^[0-9a-fA-F]{24}$/)) {
+      deletedReport = await Report.findByIdAndDelete(reportId);
+    } else {
+      // Handle legacy numeric IDs
+      deletedReport = await Report.findOneAndDelete({ id: parseInt(reportId) });
+    }
+    
+    if (!deletedReport) {
+      return res.status(404).json({ message: "Report not found" });
+    }
+    
+    res.json({ 
+      message: "Report deleted",
+      deletedReport
+    });
+  } catch (error) {
+    res.status(500).json({ message: "Error deleting report" });
   }
-  
-  const deletedReport = data.splice(index, 1)[0];
-  fs.writeFileSync(dataFilePath, JSON.stringify(data, null, 2));
-  
-  res.json({ 
-    message: "Report deleted",
-    deletedReport
-  });
 });
 
 // Delete a user
@@ -1281,23 +1329,24 @@ app.delete("/api/admin/users/:id", checkAdminToken, async (req, res) => {
 app.get("/api/admin/stats", checkAdminToken, async (req, res) => {
   try {
     const totalUsers = await User.countDocuments();
-    const totalReports = data.length;
+    const totalReports = await Report.countDocuments();
+    
+    const reports = await Report.find().select("crop reportedAt");
     
     // Count reports by crop
     const cropStats = {};
-    data.forEach(report => {
+    reports.forEach(report => {
       cropStats[report.crop] = (cropStats[report.crop] || 0) + 1;
     });
+    
+    const today = new Date().toDateString();
+    const reportsToday = reports.filter(r => new Date(r.reportedAt).toDateString() === today).length;
     
     res.json({
       totalUsers,
       totalReports,
       cropStats,
-      reportsToday: data.filter(r => {
-        const reportDate = new Date(r.reportedAt).toDateString();
-        const today = new Date().toDateString();
-        return reportDate === today;
-      }).length
+      reportsToday
     });
   } catch (error) {
     res.status(500).json({ message: "Error fetching stats", error: error.message });
