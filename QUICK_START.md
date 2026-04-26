@@ -1,4 +1,3 @@
-<<<<<<< Updated upstream
 # Quick Start Guide - FarmAlert Backend
 
 ## 🚀 5-Minute Setup
@@ -101,29 +100,3 @@ See [BACKEND_SETUP.md](./BACKEND_SETUP.md) for:
 ---
 
 **Tip:** Keep the terminal open while working. Server logs show all requests and errors.
-=======
-$project = "C:\Users\Himanshu Kumar\OneDrive\Desktop\project"
-Set-Location $project
-
-$py = Join-Path $project "python_api\.venv_clean\Scripts\python.exe"
-
-if (-not (Test-Path $py)) {
-  py -3.11 -m venv "python_api\.venv_clean"
-  $py = Join-Path $project "python_api\.venv_clean\Scripts\python.exe"
-  & $py -m pip install --upgrade pip
-  & $py -m pip install -r "python_api\requirements.txt"
-}
-
-Get-Process node -ErrorAction SilentlyContinue | Stop-Process -Force
-Get-Process python -ErrorAction SilentlyContinue | Stop-Process -Force
-
-npm install
-
-Start-Process powershell -ArgumentList "-NoExit", "-Command", "Set-Location '$project'; npm start"
-Start-Process powershell -ArgumentList "-NoExit", "-Command", "Set-Location '$project'; & '$py' 'python_api\app.py'"
-
-Start-Sleep -Seconds 6
-Write-Host "Backend: http://localhost:3000"
-Write-Host "ML API: http://127.0.0.1:5000"
-Start-Process "http://localhost:3000"
->>>>>>> Stashed changes

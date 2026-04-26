@@ -1,17 +1,5 @@
 [
   {
-<<<<<<< Updated upstream
-    "id": 1776794063260,
-    "name": "Himanshu Kumar",
-    "location": "Nawada",
-    "crop": "wheat",
-    "problem": "yellow leaf",
-    "advice": "Probable Nitrogen Deficiency or Iron Chlorosis: If uniform yellowing, apply Urea (20kg/hectare). If interveinal yellowing (veins green), apply Iron sulphate (5kg/hectare).",
-    "imageUrl": "/uploads/reports/report-1776794063253-jsi00pth.jpg",
-    "reportedAt": "2026-04-21T17:54:23.260Z",
-    "userId": "69e7b97de1d8724f326987d2",
-    "userEmail": "kumarhimanshu995573@gmail.com"
-=======
     "id": 1777190773226,
     "name": "Vivek Ash",
     "location": "river side",
@@ -88,6 +76,6 @@
     "reportedAt": "2026-04-26T11:19:50.672Z",
     "userId": "69edc518adc62cd0e63bdc17",
     "userEmail": "vivekash2005@gmail.com"
->>>>>>> Stashed changes
+  }
   }
 ]
