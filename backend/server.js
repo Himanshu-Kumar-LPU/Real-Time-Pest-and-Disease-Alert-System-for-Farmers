@@ -471,13 +471,8 @@ app.post("/analyze", upload.single("image"), async (req, res) => {
 
       if (detectedType === "non_plant") {
         return res.status(400).json({
-<<<<<<< Updated upstream
-          error: "Uploaded image does not look like a crop/leaf photo.",
-          suggestion: "Please upload a clear plant leaf or fruit image for analysis."
-=======
           error: "Image does not look like a clear plant leaf or fruit.",
           suggestion: "Please upload a close-up image focused on a single affected leaf or fruit with less background."
->>>>>>> Stashed changes
         });
       }
 

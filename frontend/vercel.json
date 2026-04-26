@@ -1,0 +1,28 @@
+{
+  "rewrites": [
+    {
+      "source": "/api/:path*",
+      "destination": "https://farmalert-backend.onrender.com/api/:path*"
+    },
+    {
+      "source": "/analyze",
+      "destination": "https://farmalert-backend.onrender.com/analyze"
+    },
+    {
+      "source": "/chat",
+      "destination": "https://farmalert-backend.onrender.com/chat"
+    },
+    {
+      "source": "/translate",
+      "destination": "https://farmalert-backend.onrender.com/translate"
+    },
+    {
+      "source": "/weather/:path*",
+      "destination": "https://farmalert-backend.onrender.com/weather/:path*"
+    },
+    {
+      "source": "/uploads/:path*",
+      "destination": "https://farmalert-backend.onrender.com/uploads/:path*"
+    }
+  ]
+}
