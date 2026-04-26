@@ -1278,6 +1278,29 @@ app.delete("/api/admin/reports/:id", checkAdminToken, async (req, res) => {
   }
 });
 
+// Update a report (Edit guidance)
+app.put("/api/admin/reports/:id", checkAdminToken, async (req, res) => {
+  try {
+    const reportId = req.params.id;
+    const { advice } = req.body;
+    
+    let report;
+    if (reportId.match(/^[0-9a-fA-F]{24}$/)) {
+      report = await Report.findByIdAndUpdate(reportId, { advice }, { new: true });
+    } else {
+      report = await Report.findOneAndUpdate({ id: parseInt(reportId) }, { advice }, { new: true });
+    }
+    
+    if (!report) {
+      return res.status(404).json({ message: "Report not found" });
+    }
+    
+    res.json({ message: "Report updated", report });
+  } catch (error) {
+    res.status(500).json({ message: "Error updating report" });
+  }
+});
+
 // Delete a user
 app.delete("/api/admin/users/:id", checkAdminToken, async (req, res) => {
   try {
