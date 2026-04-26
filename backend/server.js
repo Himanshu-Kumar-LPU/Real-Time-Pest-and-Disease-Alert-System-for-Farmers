@@ -1147,7 +1147,7 @@ app.post("/hindi-guidance", (req, res) => {
 });
 
 // Hindi report submission
-app.post("/report-hindi", (req, res) => {
+app.post("/report-hindi", async (req, res) => {
   const { name, location, crop, problem } = req.body;
   if (!name || !location || !crop || !problem) {
     return res.status(400).json({ message: "कृपया सभी जानकारी प्रदान करें।" });
